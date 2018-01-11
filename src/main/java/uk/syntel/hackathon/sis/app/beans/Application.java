@@ -1,30 +1,46 @@
 package uk.syntel.hackathon.sis.app.beans;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+import io.swagger.annotations.ApiModelProperty;
+
+@Document(collection = "Application")
 public class Application {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APP_SEQ")
-    @SequenceGenerator(sequenceName = "application_seq", allocationSize = 1, name = "APP_SEQ")
-	private Long id;
+	@ApiModelProperty(notes="Application Id")
+	private String id;
+	
+	@ApiModelProperty(notes="Customer Id")
 	private Long customerId;
+	
+	@ApiModelProperty(notes="HEI Code")
 	private String heiCode;
+	
+	@ApiModelProperty(notes="Course Code")
 	private String courseCode;
+	
+	@ApiModelProperty(notes="Course Year")
 	private String courseYear;
+	
+	@ApiModelProperty(notes="Tuition fee loan amount")
 	private Integer tflAmount;
+	
+	@ApiModelProperty(notes="Maintenance Loan Amount")
 	private Integer mlAmount;
+	
+	@ApiModelProperty(notes="Created By")
+	private String createdBy;
+	
+	@ApiModelProperty(notes="Attendance Confirmed Indicator")
+	private String confirmedAtnInd;
 
 	public Application() {
 	}
 
-	public Application(Long id, Long customerId, String heiCode, String courseCode, String courseYear,
-			Integer tflAmount, Integer mlAmount) {
+	public Application(String id, Long customerId, String heiCode, String courseCode, String courseYear,
+			Integer tflAmount, Integer mlAmount, String confirmedAtnInd, String createdBy) {
 		this.id = id;
 		this.customerId = customerId;
 		this.heiCode = heiCode;
@@ -32,13 +48,15 @@ public class Application {
 		this.courseYear = courseYear;
 		this.tflAmount = tflAmount;
 		this.mlAmount = mlAmount;
+		this.confirmedAtnInd = confirmedAtnInd;
+		this.createdBy = createdBy;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -90,11 +108,27 @@ public class Application {
 		this.mlAmount = mlAmount;
 	}
 
+	public String getConfirmedAtnInd() {
+		return confirmedAtnInd;
+	}
+
+	public void setConfirmedAtnInd(String confirmedAtnInd) {
+		this.confirmedAtnInd = confirmedAtnInd;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	@Override
 	public String toString() {
 		return "Application [id=" + id + ", customerId=" + customerId + ", heiCode=" + heiCode + ", courseCode="
 				+ courseCode + ", courseYear=" + courseYear + ", tflAmount=" + tflAmount + ", mlAmount=" + mlAmount
-				+ "]";
+				+ ", confirmedAtnInd=" + confirmedAtnInd + ", createdBy=" + createdBy + "]";
 	}
 
 }
