@@ -13,8 +13,8 @@
 						<tr>
 							<th>Application Id</th>
 							<th>Customer Id</th>
-							<th>HEI Code</th>
-							<th>Course Code</th>
+							<th>HEI Name</th>
+							<th>Course Name</th>
 							<th>Course Year</th>
 							<th>TF Loan Amount</th>
 							<th>Maintenance Loan Amount</th>
@@ -25,18 +25,23 @@
 						<tr>
 							<td><span>{{app.id}}</span></td>
 							<td><span>{{app.customerId}}</span></td>
-							<td><span>{{app.heiCode}}</span></td>
-							<td><span>{{app.courseCode}}</span></td>
+							<td><span>{{getHEIName(app.heiCode)}}</span></td>
+							<td><span>{{getCourseName(app.courseCode)}}</span></td>
 							<td><span>{{app.courseYear}}</span></td>
 							<td><span>{{app.tflAmount}}</span></td>
 							<td><span>{{app.mlAmount}}</span></td>
 							<td>
 								<button type="button" ng-click="editAppDetails(app.id)"
 									class="btn btn-success custom-width"
-									ng-show="showAppEditSection[app.id] == false">Edit</button>
+									ng-show="showAppEditSection[app.id] == false"
+									style="display: none;">Edit</button>
 								<button type="button" ng-click="hideAppDetails(app.id)"
 									class="btn btn-success custom-width"
 									ng-show="showAppEditSection[app.id] == true">Hide</button>
+								<button type="button" ng-click="confirmAttendance(app)"
+									class="btn btn-success custom-width buttonFont"
+									ng-show="app.confirmedAtnInd != 'Y'">Confirm
+									Attendance</button>
 							</td>
 						</tr>
 						<tr ng-show="showAppEditSection[app.id] == true">
