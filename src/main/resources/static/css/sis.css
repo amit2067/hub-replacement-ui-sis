@@ -200,3 +200,12 @@ button {
 .pointer {
 	cursor: pointer;
 }
+.headerText {
+	padding-left: 40%;
+	padding-top: 5%;
+	font-size: 2em;
+	font-family: inherit;
+}
+.buttonFont {
+	font: bold 15px 'Trebuchet MS', Verdana, Arial, Helvetica, sans-serif;
+}
