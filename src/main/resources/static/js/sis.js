@@ -80,6 +80,21 @@ sisApp
 														return $q
 																.reject(errResponse);
 													});
+								},
+								confirmAttendance : function(application) {
+									return $http
+											.post(
+													'http://localhost:9084/confirmAttendance', application)
+											.then(
+													function(response) {
+														return response.data;
+													},
+													function(errResponse) {
+														console
+																.error('Error while confirming attendance');
+														return $q
+																.reject(errResponse);
+													});
 								}
 							};
 						} ]);
@@ -110,6 +125,26 @@ sisApp.controller('sisAppController', [ '$scope', 'sisService',
 			    {name : "2", code : "2"},
 			    {name : "3", code : "3"}
 			];
+			
+			$scope.getHEIName = function(heiCode) {
+				var heiName = "";
+				for(var i = 0; i < $scope.heis.length; i++){
+					if ($scope.heis[i].code == heiCode) {
+						heiName = $scope.heis[i].name;
+					}
+		        }
+				return heiName;
+			}
+			
+			$scope.getCourseName = function(courseCode) {
+				var courseName = "";
+				for(var i = 0; i < $scope.courses.length; i++){
+					if ($scope.courses[i].code == courseCode) {
+						courseName = $scope.courses[i].name;
+					}
+		        }
+				return courseName;
+			}
 			
 			$scope.getCustomers = function() {
 
@@ -206,6 +241,20 @@ sisApp.controller('sisAppController', [ '$scope', 'sisService',
 					$scope.getApplications();
 				}, function(errResponse) {
 					console.error('Error while saving application details');
+					showOverLay('ProcessingOverlay', false, 6000);
+				});
+			}
+		    
+		    $scope.confirmAttendance = function(application) {
+
+				showOverLay('ProcessingOverlay', true, 6000);
+				application.confirmedAtnInd = 'Y';
+				application.createdBy= 'SIS';
+				sisService.confirmAttendance(application).then(function(data) {
+					showOverLay('ProcessingOverlay', false, 6000);
+					$scope.getApplications();
+				}, function(errResponse) {
+					console.error('Error while confirming attendance');
 					showOverLay('ProcessingOverlay', false, 6000);
 				});
 			}
