@@ -1,16 +1,21 @@
 package uk.syntel.hackathon.sis.app.beans;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import io.swagger.annotations.ApiModelProperty;
 
-@Document(collection = "Application")
+@Entity
 public class Application {
 
 	@Id
+	@GenericGenerator(name = "incrementGenerator", strategy = "org.hibernate.id.IncrementGenerator")
+    @GeneratedValue(generator="incrementGenerator")
 	@ApiModelProperty(notes="Application Id")
-	private String id;
+	private Long id;
 	
 	@ApiModelProperty(notes="Customer Id")
 	private Long customerId;
@@ -39,8 +44,8 @@ public class Application {
 	public Application() {
 	}
 
-	public Application(String id, Long customerId, String heiCode, String courseCode, String courseYear,
-			Integer tflAmount, Integer mlAmount, String confirmedAtnInd, String createdBy) {
+	public Application(Long id, Long customerId, String heiCode, String courseCode, String courseYear,
+			Integer tflAmount, Integer mlAmount, String createdBy, String confirmedAtnInd) {
 		this.id = id;
 		this.customerId = customerId;
 		this.heiCode = heiCode;
@@ -48,15 +53,15 @@ public class Application {
 		this.courseYear = courseYear;
 		this.tflAmount = tflAmount;
 		this.mlAmount = mlAmount;
-		this.confirmedAtnInd = confirmedAtnInd;
 		this.createdBy = createdBy;
+		this.confirmedAtnInd = confirmedAtnInd;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -108,14 +113,6 @@ public class Application {
 		this.mlAmount = mlAmount;
 	}
 
-	public String getConfirmedAtnInd() {
-		return confirmedAtnInd;
-	}
-
-	public void setConfirmedAtnInd(String confirmedAtnInd) {
-		this.confirmedAtnInd = confirmedAtnInd;
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -124,11 +121,19 @@ public class Application {
 		this.createdBy = createdBy;
 	}
 
+	public String getConfirmedAtnInd() {
+		return confirmedAtnInd;
+	}
+
+	public void setConfirmedAtnInd(String confirmedAtnInd) {
+		this.confirmedAtnInd = confirmedAtnInd;
+	}
+
 	@Override
 	public String toString() {
 		return "Application [id=" + id + ", customerId=" + customerId + ", heiCode=" + heiCode + ", courseCode="
 				+ courseCode + ", courseYear=" + courseYear + ", tflAmount=" + tflAmount + ", mlAmount=" + mlAmount
-				+ ", confirmedAtnInd=" + confirmedAtnInd + ", createdBy=" + createdBy + "]";
+				+ ", createdBy=" + createdBy + ", confirmedAtnInd=" + confirmedAtnInd + "]";
 	}
 
 }
