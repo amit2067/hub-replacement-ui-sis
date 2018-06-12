@@ -1,21 +1,16 @@
 package uk.syntel.hackathon.sis.app.beans;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import io.swagger.annotations.ApiModelProperty;
 
-@Entity
+@Document(collection = "Application")
 public class Application {
 
 	@Id
-	@GenericGenerator(name = "incrementGenerator", strategy = "org.hibernate.id.IncrementGenerator")
-    @GeneratedValue(generator="incrementGenerator")
 	@ApiModelProperty(notes="Application Id")
-	private Long id;
+	private String id;
 	
 	@ApiModelProperty(notes="Customer Id")
 	private Long customerId;
@@ -44,8 +39,8 @@ public class Application {
 	public Application() {
 	}
 
-	public Application(Long id, Long customerId, String heiCode, String courseCode, String courseYear,
-			Integer tflAmount, Integer mlAmount, String createdBy, String confirmedAtnInd) {
+	public Application(String id, Long customerId, String heiCode, String courseCode, String courseYear,
+			Integer tflAmount, Integer mlAmount, String confirmedAtnInd, String createdBy) {
 		this.id = id;
 		this.customerId = customerId;
 		this.heiCode = heiCode;
@@ -53,15 +48,15 @@ public class Application {
 		this.courseYear = courseYear;
 		this.tflAmount = tflAmount;
 		this.mlAmount = mlAmount;
-		this.createdBy = createdBy;
 		this.confirmedAtnInd = confirmedAtnInd;
+		this.createdBy = createdBy;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -113,14 +108,6 @@ public class Application {
 		this.mlAmount = mlAmount;
 	}
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	public String getConfirmedAtnInd() {
 		return confirmedAtnInd;
 	}
@@ -129,11 +116,19 @@ public class Application {
 		this.confirmedAtnInd = confirmedAtnInd;
 	}
 
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	@Override
 	public String toString() {
 		return "Application [id=" + id + ", customerId=" + customerId + ", heiCode=" + heiCode + ", courseCode="
 				+ courseCode + ", courseYear=" + courseYear + ", tflAmount=" + tflAmount + ", mlAmount=" + mlAmount
-				+ ", createdBy=" + createdBy + ", confirmedAtnInd=" + confirmedAtnInd + "]";
+				+ ", confirmedAtnInd=" + confirmedAtnInd + ", createdBy=" + createdBy + "]";
 	}
 
 }

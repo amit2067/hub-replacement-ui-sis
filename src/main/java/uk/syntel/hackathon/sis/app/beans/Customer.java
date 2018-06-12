@@ -1,21 +1,16 @@
 package uk.syntel.hackathon.sis.app.beans;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import io.swagger.annotations.ApiModelProperty;
 
-@Entity
+@Document(collection = "Customer")
 public class Customer {
 
-    @Id
-    @GenericGenerator(name = "incrementGenerator", strategy = "org.hibernate.id.IncrementGenerator")
-    @GeneratedValue(generator="incrementGenerator")
+	@Id
     @ApiModelProperty(notes="Customer Id")
-	private Long id;
+	private String id;
     
     @ApiModelProperty(notes="First name")
 	private String firstName;
@@ -46,8 +41,8 @@ public class Customer {
 
 	public Customer() {
 	}
-
-	public Customer(Long id, String firstName, String lastName, String emailAddress, String addressLine1,
+	
+	public Customer(String id, String firstName, String lastName, String emailAddress, String addressLine1,
 			String addressLine2, String city, String postalCode, String phoneNumber, String createdBy) {
 		this.id = id;
 		this.firstName = firstName;
@@ -61,11 +56,11 @@ public class Customer {
 		this.createdBy = createdBy;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -147,5 +142,5 @@ public class Customer {
 				+ emailAddress + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city
 				+ ", postalCode=" + postalCode + ", phoneNumber=" + phoneNumber + ", createdBy=" + createdBy + "]";
 	}
-
+	
 }
